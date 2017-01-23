@@ -1,0 +1,45 @@
+/* The structure of the Linked list Node is as follows:
+struct Node
+{
+    Node* next;
+    int data;
+}; */
+/*
+void sortListUtil(Node* n){
+    stack<int> s;
+    if(n->next != NULL){
+        s = sortListUtil(n->next);
+    }
+    if(n->data < 0 ){
+        cout<< n->data<<"Hi ";
+    }
+    else{
+        s.push(n->data);
+    }
+    return s;
+}*/
+
+void sortList(Node** head)
+{
+    Node* curr = *head;
+    if(curr==NULL){
+        return;
+    }
+    Node* prev = curr;
+    if(curr->next){
+        curr = curr->next;
+    }
+    while(curr != NULL){
+        if(curr->data < prev->data){
+            Node* tmp = curr;
+            prev->next = tmp->next;
+            tmp->next= *head;
+            *head = tmp;
+            curr = prev->next;
+        }   
+        else{
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+}
