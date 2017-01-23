@@ -1,0 +1,21 @@
+// The task is to complete this function
+int getId(int M[MAX][MAX], int n)
+{   int id_check = -1;
+    for(int i =0; i<2;i++){
+        for(int j = 0;j<n;j++){
+            if(M[i][j] == 1){
+                id_check = j;
+                break;
+            }
+        }
+    }
+    if(id_check != -1){
+        for(int i =0; i<n; i++){
+           if(M[id_check][i] == 1){
+               return -1;
+           }
+        }
+        return id_check;
+    }
+    return -1;
+}
