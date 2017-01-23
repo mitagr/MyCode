@@ -1,0 +1,29 @@
+int transitionPoint(int arr[],int n)
+{
+    if(arr[0] == 1 || arr[n-1] == 0){
+        return -1;
+    }
+    int start =0;
+    int end = n-1;
+    int mid;
+    while(start <= end){
+        mid = (start+end)/2;
+       // cout<<mid<<"&"<<arr[mid]<<" ";
+        if(arr[mid] == 1){
+            if(arr[mid-1] == 0){
+                return (mid-1)+1;
+            }
+        else{
+            end = mid-1;
+        }
+        }
+        if(arr[mid] == 0){
+            if(arr[mid+1] == 1){
+                return (mid)+1;
+            }
+        else{
+            start = mid+1;
+        }
+        }
+    }
+}
