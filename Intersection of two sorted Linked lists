@@ -1,0 +1,45 @@
+/* The structure of the Linked list Node is as follows:
+struct Node {
+    int val;
+    struct Node* next;
+}; */
+
+void insert(int data, Node *h3){
+    //Node *h3 = *head3;
+    Node *n  = new Node();
+    n->val = data;
+    n->next = NULL;
+    if(h3 == NULL){
+        cout<<"HI";
+        //h3 = n;
+        h3 = n;
+        return;
+    }
+    //Node* h3 = *head3;
+    while(h3->next != NULL){
+        h3 = h3->next;
+    }
+    h3->next = n;
+}
+
+void intersection(Node **head1, Node **head2,Node **head3)
+{
+    Node* h1 = *head1;
+    Node* h2 = *head2;
+    Node* h3 = *head3;
+    while(h1 != NULL && h2 != NULL){
+        int s1 = h1->val;
+        int s2 = h2->val;
+        if (s1 == s2){
+            insert(s1, h3);
+            h1 = h1->next;
+            h2 = h2->next;
+        }
+        else if(s1<s2){
+            h1 = h1->next;
+        }
+        else{
+            h2 = h2->next;
+        }
+}
+}
