@@ -1,0 +1,33 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+Node* LCAUtil(Node* n, int n1, int n2){
+    if(n==NULL){
+        return NULL;
+    }
+    if(n->data >= n1 && n->data <= n2){
+        return n;
+    }
+    if(n->data < n1){
+        return LCAUtil(n->right, n1, n2);
+    }
+    if(n->data > n2){
+        return LCAUtil(n->left, n1, n2);
+    }
+    return NULL;
+}
+
+Node * LCA(Node* root ,int n1 ,int n2 )
+{
+   if(root == NULL){
+       return NULL;
+   } 
+   int sn = 0, ln = 0;
+   n1<n2?sn = n1:sn = n2;
+   ln = n1+n2-sn;
+   return LCAUtil(root, sn, ln);
+}
