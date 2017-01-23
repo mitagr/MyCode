@@ -1,0 +1,34 @@
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child 
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+
+void rightViewUTil(Node* n, int* maxh,int curr){
+    if(curr>*maxh){
+        cout<<n->data<<" ";
+        *maxh = curr;
+    }
+    if(n->right != NULL){
+        rightViewUTil(n->right, maxh, ++curr);
+        --curr;
+    }
+    if(n->left != NULL){
+        rightViewUTil(n->left, maxh, ++curr);
+        --curr;
+    }
+}
+
+void rightView(Node *root)
+{
+   if(root == NULL){
+       return;
+   }
+   int maxh = 0;
+   int curr = 1;
+   
+   rightViewUTil(root,&maxh, curr);
+}
