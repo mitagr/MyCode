@@ -1,0 +1,31 @@
+/* struct Node
+ {
+   int data;
+   Node* next;
+ }; */
+
+/* Should return data of n'th node from the end of linked list */
+
+int getNthFromLastUtil(Node *head, int n, int* count){
+    int res = -1;
+    if(head->next != NULL){
+        res = getNthFromLastUtil(head->next, n, count);
+    }
+    else{
+        *count = 1;
+    }
+    if(*count == n){
+        res = head->data;
+    }
+    *count+=1;
+    return res;
+}
+
+int getNthFromLast(Node *head, int n)
+{
+    if(head == NULL){
+        return -1;
+    }
+    int c = 0;
+    return getNthFromLastUtil(head, n, &c);
+}
