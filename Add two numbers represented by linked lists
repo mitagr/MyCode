@@ -1,0 +1,51 @@
+/*struct Node
+{
+    int data;
+   Node* next;
+}; */
+//write a function returns the resultant linked list
+void addTwoListsUtil(Node* first, Node* second, Node* curr,int carry){
+    if(!first && !second){
+        if(!carry){
+        return;
+        }
+        Node* n = new Node();
+        n->data = carry;
+        n->next = NULL;
+        curr->next = n;
+        return;
+    }
+    while(first || second){
+        int newcarry = (first?first->data:0 + second?second->data:0 + carry)/10;
+        Node* n = new Node();
+        n->data = (first?first->data:0 + second?second->data:0 + carry)-(newcarry*10);
+        n->next = NULL;
+        if(!curr){
+            curr = n;
+        }
+        else{
+        curr->next = n;
+        curr = curr->next;
+        }
+        carry = newcarry;
+        first=first?first->next:NULL;
+        second=second?second->next:NULL;
+    }
+    if(!first && !second){
+        if(!carry){
+        return;
+        }
+        Node* n = new Node();
+        n->data = carry;
+        n->next = NULL;
+        curr->next = n;
+        return;
+    }
+}
+
+Node*  addTwoLists(Node* first, Node* second){
+  Node* n = new Node();
+  n = NULL;
+  addTwoListsUtil(first, second, n, 0);
+  return n;
+}
