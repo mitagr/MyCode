@@ -1,0 +1,37 @@
+/* Tree node structure
+struct Node 
+{
+   int data;
+   Node *left, *right;
+}*/
+
+// Function should construct tree and return
+// root of it.  in[] stores inorder traversal
+// post[] stores postorder traversal.  n is
+// size of these arrays
+
+Node *buildTUtil(int in[], int post[], int l, int r, int n)
+{
+if(l > r || l > n || r > n)
+return NULL;
+static int p=r;
+int i;
+Node *root = (Node *)malloc(sizeof(Node));
+root->data = post[p];
+for(i=l;i<=r;i++)
+{
+if(in[i] == post[p])
+break;
+}
+if(i > r)
+return NULL;
+p--;
+root->right = buildTUtil(in, post, i+1, r, n);
+root->left = buildTUtil(in, post, l, i-1, n);
+return root;
+}
+
+Node *buildTree(int in[], int post[], int n)
+{
+return buildTUtil(in, post, 0, n-1, n);
+}
