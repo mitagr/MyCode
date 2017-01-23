@@ -1,0 +1,45 @@
+/* structure for a node */
+/*
+struct Node
+{
+  int data;
+  Node *next;
+};
+ */
+void sortedInsert(Node** head_ref, int x)
+{
+   Node* h = *head_ref;
+   Node* n = new Node();
+   n->data = x;
+   n->next = NULL;
+   if(h==NULL){
+       n->next = n;
+      *head_ref = n;
+   }
+   if(x<h->data){
+      n->next = *head_ref;
+      while(h->next != *head_ref){
+          h=h->next;
+      }
+      h->next = n;
+      *head_ref = n;
+      return;
+   }
+   Node* prev = h;
+   h = h->next;
+   while(h != *head_ref){
+       if(x <= h->data){
+           n->next = prev->next;
+           prev->next = n;
+           prev = n;
+           return;
+       }
+       else if(h->next == *head_ref){
+           n->next = h->next;
+           h->next = n;
+           return;
+       }
+       prev = h;
+       h=h->next;
+   }
+}
