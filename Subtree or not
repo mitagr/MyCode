@@ -1,0 +1,128 @@
+#include<iostream>
+using namespace std;
+
+
+  struct NodeT{
+      int tValue;
+      NodeT *left;
+      NodeT *right;
+      NodeT(int value)
+      {
+      this->tValue  = value;
+      this->left = NULL;
+      this->right = NULL;
+      }
+  };
+
+class Tree{
+  public:
+  
+  NodeT *root;
+  
+  Tree(){
+      root=NULL;
+  }
+  
+ void insert(int val, NodeT * n)
+  {
+  
+  if(val<n->tValue){
+      if(n->left!=NULL){
+         insert(val,n->left);
+        }
+    else{
+       NodeT* node = new NodeT(val);
+       n->left=node;
+       return;
+        }
+   }
+   else{
+       if(n->right!=NULL){
+          insert(val, n->right);
+       }
+      else{
+           NodeT* node = new NodeT(val);
+           n->right=node;
+      }
+   }
+   }
+  void insertIntoTree(int val){
+      if(root==NULL){
+          NodeT* node = new NodeT(val);
+          root = node;
+          return;
+      }
+     NodeT* n = root;
+     insert(val, n);
+  }
+    
+    void inorder(NodeT* n){
+        if(n==NULL){
+         cout<<"Tree is empty";
+        }
+            if(n->left!=NULL){
+            inorder(n->left);
+            }
+            cout<<n->tValue;
+            if(n->right!=NULL){
+            inorder(n->right);
+            }
+                
+    }
+};
+
+
+bool treeMatch(NodeT* n, NodeT* r){
+    if(n==NULL && r== NULL){
+    return true;
+    }
+    if(n==NULL || r== NULL){
+    return false;
+    }
+    if(n->tValue == r->tValue){
+       return treeMatch(n->left, r->left) && treeMatch(n->right, r->right);
+    }       
+    return false;
+}
+
+
+bool subtree(NodeT* n, NodeT* r){
+        if(n == NULL || r == NULL) {
+            return false;
+        }
+       if (n->tValue == r->tValue){
+            if(treeMatch(n, r))
+            {
+            return true;
+            }
+        }
+       else{            
+            return subtree(n->left, r) ||  subtree(n->right, r);
+        }
+   }
+   
+
+int main(){
+    Tree tree;
+    tree.insertIntoTree(50);
+    tree.insertIntoTree(89);
+    tree.insertIntoTree(40);
+    tree.insertIntoTree(4);
+    tree.insertIntoTree(100);
+    tree.insertIntoTree(49);
+    tree.insertIntoTree(60);
+    tree.inorder(tree.root);
+    
+    cout<<endl;
+    
+    Tree t;
+    t.insertIntoTree(89);
+    t.insertIntoTree(100);
+    t.insertIntoTree(70);
+    t.inorder(t.root);
+    
+    bool ans;
+    ans = subtree(tree.root, t.root);
+    cout<<endl<<"The answer is: "<<ans;
+    return 0;
+}
