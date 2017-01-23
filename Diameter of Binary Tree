@@ -1,0 +1,27 @@
+/* Tree node structure  used in the program
+ struct Node
+ {
+     int data;
+     Node* left, *right;
+}; */
+
+/* Computes the diameter of binary tree with given root.  */
+int diameterUtil(Node* n, int* maxh){
+    if(n==NULL){
+        return 0;
+    }
+    int lh = diameterUtil(n->left , maxh);
+    int rh = diameterUtil(n->right, maxh);
+    int h = lh + rh;
+    if(h+1 > *maxh){
+        *maxh = h+1;
+    }
+    return max(lh, rh)+1;
+}
+
+int diameter(Node* node)
+{
+   int maxh = 0;
+   int i = diameterUtil(node, &maxh);
+   return maxh;
+}
