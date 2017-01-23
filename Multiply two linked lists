@@ -1,0 +1,32 @@
+/*The method multiplies 
+two  linked lists l1 and l2
+and returns their product*/
+
+long long llToNum(node *n){
+    long long M = 1000000007;
+    long long num = 0;
+        while(n != NULL) {
+            int tmp = n->data;
+            num = (((num*10)%M)+(tmp%M))%M;
+            n = n->next;
+        }
+        return num;
+    }
+    
+/*You are required to complete this method*/
+long long  multiplyTwoLists (node* l1, node* l2)
+{
+    
+    long long M = 1000000007;
+    if(l1 != NULL && l2 != NULL){
+    long long num1 = llToNum(l1);
+    long long num2 = llToNum(l2);
+    long long r = ((num1%M)*(num2%M))%M;
+    return r;
+    }
+    else{
+        return 0;
+    }
+}
+ 
+    
