@@ -1,0 +1,61 @@
+/* Link list Node 
+struct Node
+{
+    int data;
+    struct Node* next;
+};*/
+/*You are required to complete this method*/
+
+class LL {
+public:
+
+	Node* head;
+
+	LL() {
+		head = NULL;
+	}
+
+
+	void insert(int val) {
+		Node* n = new Node();
+		n->next = NULL;
+		n->data = val;
+		if (head == NULL) {
+			head = n;
+		}
+		else {
+			Node* tmp = head;
+			while (tmp->next != NULL) {
+				tmp = tmp->next;
+			}
+			tmp->next = n;
+		}
+	}
+
+};
+
+void deleteRecursive(Node* head, int k, int count, LL& newll) {
+	if (count != k) {
+		newll.insert(head->data);
+		count++;
+	}
+	else {
+		count = 1;
+	}
+	if (head->next != NULL)
+	{
+		deleteRecursive(head->next, k, count, newll);
+	}
+}
+
+Node * deleteK(Node *head, int K)
+{
+	if (head) {
+		LL newll;
+		deleteRecursive(head, K, 1, newll);
+		return newll.head;
+	}
+	else {
+		return NULL;
+	}
+}
