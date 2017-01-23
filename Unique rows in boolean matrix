@@ -1,0 +1,106 @@
+/*You are required to complete this function*/
+struct Trie {
+	int data;
+	Trie* left;
+	Trie* right;
+};
+
+class Tries {
+public:
+	Trie *root;
+	Tries() {
+		root = NULL;
+	}
+	int insert(string s) {
+		int i = 0, b = 0;
+		Trie* tmp = new Trie();
+		if (root == NULL) {
+			Trie* n = new Trie();
+			n->data = s[i] - '0';
+			n->left = NULL;
+			n->right = NULL;
+			root = n;
+			b = 1;
+		}
+		else {
+			tmp = root;
+			i++;
+		}
+		while (s[i] != '\0') {
+			Trie* n = new Trie();
+			n->data = s[i] - '0';
+			n->left = NULL;
+			n->right = NULL;
+			
+				if (n->data == 1) {
+					if (tmp->right != NULL) {
+						tmp = tmp->right;
+					}
+					else {
+						tmp->right = n;
+						b = 1;
+					}
+				}
+				else if (n->data == 0) {
+					if (tmp->left != NULL) {
+						tmp = tmp->left;
+					}
+					else {
+
+						tmp->left = n;
+						b = 1;
+					}
+				}
+			
+
+			i++;
+		}
+		return b;
+	}
+
+};
+
+
+void printMat(int M[MAX][MAX], int row, int col)
+{
+	/*
+	set<string> myset;
+	for (int i = 0; i<row; i++){
+	string s= "";
+	for(int j = 0; j<col;j++){
+	s = s + to_string(M[i][j]) + " ";
+	}
+	myset.insert(s);
+	}
+	for(set<string>::iterator it = myset.begin(); it != myset.end(); it++){
+	cout<<*it<<"$";
+	}
+	*/
+
+	Tries t1;
+	Tries t2;
+	for (int i = 0; i<row; i++) {
+		string s = "";
+		for (int j = 0; j<col; j++) {
+			s = s + to_string(M[i][j]);
+		}
+		if (s[0] == '1') {
+			if (t1.insert(s)) {
+				int j = 0;
+				while (j<col) {
+					cout << M[i][j] << " "; j++;
+				}
+				cout << "$";
+			}
+		}
+		else {
+			if (t2.insert(s)) {
+				int j = 0;
+				while (j<col) {
+					cout << M[i][j] << " "; j++;
+				}
+				cout << "$";
+			}
+		}
+	}
+}
