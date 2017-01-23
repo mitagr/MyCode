@@ -1,0 +1,87 @@
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child  
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+}; */
+
+
+
+void serializePart1(Node *root, vector<int> &A)
+{
+	if (root == NULL) {
+		return;
+	}
+	if (root->left != NULL) {
+		serializePart1(root->left, A);
+	}
+	A.push_back(root->data);
+	if (root->right != NULL) {
+		serializePart1(root->right, A);
+	}
+}
+
+void serializePart2(Node *root, vector<int> &A)
+{
+	if (root == NULL) {
+		return;
+	}
+	if (root->left != NULL) {
+		serializePart2(root->left, A);
+	}
+	if (root->right != NULL) {
+		serializePart2(root->right, A);
+	}
+	A.push_back(root->data);
+}
+
+void serialize(Node *root, vector<int> &A)
+{
+	if (root == NULL) {
+		return;
+	}
+	serializePart1(root, A);
+	serializePart2(root, A);
+}
+
+int findInIndex(vector<int> &A, int data, int iStart, int iEnd) {
+	int i = 0;
+	for (i = iStart; i <= iEnd; i++) {
+		if (A[i] == data) {
+
+			return i;
+		}
+	}
+
+}
+
+Node* deSerializeUtil(vector<int> &A, int iStart, int iEnd, int *iPost) {
+	if (iStart > iEnd) {
+		return NULL;
+	}
+
+	Node* node = new Node();
+	node->data = A[*iPost];
+	node->left = node->right = NULL;
+	*iPost = *iPost - 1;
+	if (iStart == iEnd) {
+		return node;
+	}
+	int iIndex = findInIndex(A, node->data, iStart, iEnd);
+	if (*iPost > ((A.size()) / 2) - 1) {
+		node->right = deSerializeUtil(A, iIndex + 1, iEnd, iPost);
+		node->left = deSerializeUtil(A, iStart, iIndex - 1, iPost);
+	}
+	return node;
+}
+
+Node * deSerialize(vector<int> &A)
+{
+	int iStart = 0;
+	int iEnd = ((A.size()) / 2) - 1;
+	int iPost = (A.size()) - 1;
+	Node* n = deSerializeUtil(A, iStart, iEnd, &iPost);
+	return n;
+}
