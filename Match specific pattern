@@ -1,0 +1,32 @@
+/* The function returns a  vector of strings 
+present in the dictionary which matches
+the string pattern.
+You are required to complete this method */
+
+string encodeString(string word) {
+
+	unordered_map<char, int> map;
+	string res = "";
+	int i = 0;
+	for (char ch : word) {
+		if (map.find(ch) == map.end()) {
+			map[ch] = i++;
+		}
+		res += to_string(map[ch]);
+	}
+	return res;
+}
+vector<string> findMatchedWords(vector<string> dict,string pattern) {
+
+	string encode = encodeString(pattern);
+	int len = pattern.length();
+	
+    vector<string> res;
+    
+	for (string word : dict) {
+		if (word.length() == len && encodeString(word) == encode) {
+			res.push_back(word);
+		}
+	}
+    return res;
+}
