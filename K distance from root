@@ -1,0 +1,36 @@
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child /
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+
+// Recursive function to print right view of a binary tree.
+
+void printKdistanceUtil(Node* n, int k , int* curr){
+    if(*curr == k){
+        cout<<n->data<<" ";
+        return;
+    } 
+    if(n->left != NULL){
+        *curr = *curr+1;
+        printKdistanceUtil(n->left,k,curr);
+        *curr = *curr-1;
+    }
+    if(n->right != NULL){
+        *curr = *curr+1;
+        printKdistanceUtil(n->right, k,curr);
+        *curr = *curr-1;
+    }
+}
+
+void printKdistance(Node *root, int k)
+{
+    int curr = 0;
+    if (root == NULL){
+        return;
+    }
+  printKdistanceUtil(root, k, &curr);
+}
