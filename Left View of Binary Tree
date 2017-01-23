@@ -1,0 +1,34 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+static int maxd;
+
+
+void leftViewUtil(Node* n, int currd){
+    if(currd>maxd){
+        cout<< n->data<<" ";
+        maxd = currd;
+    }
+    if(n->left != NULL){
+        leftViewUtil(n->left, ++currd);
+        --currd;
+    }
+    if(n->right != NULL){
+        leftViewUtil(n->right, ++currd);
+        --currd;
+    }
+}
+
+void leftView(Node *root)
+{
+   if(root == NULL){
+       return;
+   }
+   maxd = 0;
+   int currd = 1;
+   leftViewUtil(root, currd);
+}
