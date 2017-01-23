@@ -1,0 +1,58 @@
+/* The Node structure is
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+}; */
+
+void inorderStore(Node* n, vector<int>& arr) {
+		if (n == NULL) {
+		//	cout << "Tree is empty";
+		return;
+		}
+		if (n->left != NULL) {
+			inorderStore(n->left,arr);
+		}
+		arr.push_back(n->data);
+		if (n->right != NULL) {
+			inorderStore(n->right,arr);
+		}
+
+}
+
+void manipulateBT(Node* n, set<int>&  myset, set<int>::iterator& itr) {
+		if (n == NULL) {
+			//tree empty
+			return;
+		}
+		if (n->left != NULL) {
+			manipulateBT(n->left, myset, itr);
+		}
+		n->data = *itr;
+		itr++;
+		if (n->right != NULL) {
+			manipulateBT(n->right, myset, itr);
+		}
+	}
+	
+Node *binaryTreeToBST (Node *root)
+{       
+        vector<int> inPrev;
+		inorderStore(root, inPrev);
+		set<int> myset;
+		for (vector<int>::iterator it = inPrev.begin(); it != inPrev.end(); it++) {
+			myset.insert(*it);
+
+		}
+		/*
+		cout << endl;
+		for (set<int>::iterator itr = myset.begin(); itr != myset.end(); itr++) {
+			cout << *itr << " ";
+		}
+		*/
+		set<int>::iterator itr = myset.begin();
+		manipulateBT(root, myset, itr);
+		return root;
+}
+ 
