@@ -1,0 +1,33 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+
+/*you are required to 
+complete this function */
+
+bool hasPathSumUtil(Node* n, int sum, int check){
+    if(n==NULL){
+        return 0;
+    }
+    sum += n->data;
+    if(n->left == NULL && n->right == NULL && sum == check){
+        return 1;
+    }
+    if(check > sum){
+        return hasPathSumUtil(n->left, sum, check) || hasPathSumUtil(n->right, sum, check);
+    }
+    return 0;
+}
+
+bool hasPathSum(Node *node, int sum)
+{
+   if(node == NULL){
+       return 0;
+   }
+   int currSum = 0;
+   return hasPathSumUtil(node, currSum, sum);
+}
